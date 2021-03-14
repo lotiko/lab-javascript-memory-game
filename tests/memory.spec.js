@@ -7,7 +7,7 @@ describe("MemoryGame class", () => {
   });
 
   it("Create MemoryGame object", () => {
-    expect(typeof MemoryGame).toBe("function");
+    expect(typeof memoryGame).toBe("object");
   });
 
   it("MemoryGame should receive `cards` as a parameter and create it as its own `cards` property", () => {
@@ -57,7 +57,7 @@ describe("shuffleCards method", () => {
       { name: "flash", img: "flash.jpg" },
       { name: "green arrow", img: "green-arrow.jpg" },
       { name: "green lantern", img: "green-lantern.jpg" },
-      { name: "ironman", img: "ironman.jpg" }
+      { name: "ironman", img: "ironman.jpg" },
     ];
     memoryGame = new MemoryGame(cardsArray);
   });
@@ -67,13 +67,14 @@ describe("shuffleCards method", () => {
   });
 
   it("should return undefined if argument (cards array) is not passed", () => {
-    expect(typeof memoryGame.shuffleCards()).toBe("undefined");
+    let memoryGameTest = new MemoryGame();
+    expect(typeof memoryGameTest.shuffleCards()).toBe("undefined");
   });
 
   it("should return the shuffled (mixed) array of cards", () => {
-    let formerCardsString = memoryGame.cards.map(card => card.name).toString();
+    let formerCardsString = memoryGame.cards.map((card) => card.name).toString();
     memoryGame.shuffleCards();
-    let newCardsString = memoryGame.cards.map(card => card.name).toString();
+    let newCardsString = memoryGame.cards.map((card) => card.name).toString();
     expect(formerCardsString === newCardsString).toBe(false);
   });
 });

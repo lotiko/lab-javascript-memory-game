@@ -62,6 +62,7 @@ window.addEventListener("load", (event) => {
           memoryGame.resetPickedCards();
           cardPicked = 0;
         } else {
+          // else player see cards 2 second
           setTimeout(reTurnCard, 2000, [...memoryGame.pickedCards]);
           memoryGame.resetPickedCards();
         }

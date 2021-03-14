@@ -9,11 +9,14 @@ body {
 
 #memory-board {
   background: #dddddd;
-  width: 800px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 790px;
   height: 540px;
-  padding: 70px;
-  margin: 0px auto;
-  border-radius: 84px;
+  padding: 20px;
+  margin: auto;
+  border-radius: 5px;
   box-shadow: inset 0px 0px 20px -6px rgba(97, 89, 97, 1);
 }
 
@@ -38,8 +41,8 @@ body {
 
 .card .back,
 .card .front {
-  width: 71px;
-  height: 71px;
+  width: 70px;
+  height: 70px;
   margin: 10px;
   padding: 20px;
   font-size: 64px;

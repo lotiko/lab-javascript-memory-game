@@ -1,4 +1,4 @@
-const this.cards = [
+const cards = [
   { name: "aquaman", img: "aquaman.jpg" },
   { name: "batman", img: "batman.jpg" },
   { name: "captain america", img: "captain-america.jpg" },
@@ -25,8 +25,8 @@ const this.cards = [
   { name: "thor", img: "thor.jpg" },
 ];
 
-const memoryGame = new MemoryGame(this.cards);
-console.log(typeof memoryGame);
+const memoryGame = new MemoryGame(cards);
+memoryGame.shuffleCards();
 
 window.addEventListener("load", (event) => {
   let html = "";
@@ -43,8 +43,24 @@ window.addEventListener("load", (event) => {
   // Bind the click event of each element to a function
   document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", () => {
-      // TODO: write some code here
-      console.log(`Card clicked: ${card}`);
+      // ckeck si deux carte
+      memoryGame.addPickedCard(card);
+      card.classList.toggle("turned");
+      let haveApickedPairs = memoryGame.pickedCards.length === 2;
+      if (haveApickedPairs) {
+        let findPairs = memoryGame.checkIfPair(...memoryGame.getNamesPickedCards());
+        if (findPairs) {
+          memoryGame.resetPickedCards();
+        } else {
+          setTimeout(reTurnCard, 2000, [...memoryGame.pickedCards]);
+          memoryGame.resetPickedCards();
+        }
+      } else {
+      }
     });
   });
 });
+
+function reTurnCard(arrCards) {
+  arrCards.forEach((card) => card.classList.toggle("turned"));
+}

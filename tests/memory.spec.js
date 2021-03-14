@@ -129,3 +129,47 @@ describe("isFinished method", () => {
     expect(memoryGame.isFinished()).toBe(true);
   });
 });
+describe("addPickedCard method", () => {
+  it("should be declared", () => {
+    expect(typeof memoryGame.addPickedCard).toBe("function");
+  });
+
+  it("should return true if there's still some place in pickedCards", () => {
+    expect(memoryGame.addPickedCard("batman")).toBe(true);
+  });
+  it("should return false if pickedCards if full (length = 2)", () => {
+    memoryGame.pickedCards = ["batman", "ironman"];
+    expect(memoryGame.addPickedCard("batman")).toBe(false);
+  });
+});
+
+describe("resetPickedCards method", () => {
+  it("should be declared", () => {
+    expect(typeof memoryGame.resetPickedCards).toBe("function");
+  });
+
+  it("should set pickedCards to empty array", () => {
+    memoryGame.pickedCards = ["batman", "ironman"];
+    memoryGame.resetPickedCards();
+    expect(memoryGame.pickedCards.length).toBe(0);
+  });
+});
+describe("getNamesPickedCards method", () => {
+  beforeEach(() => {
+    const cardsArray = [
+      { dataset: { cardName: "aquaman" }, img: "aquaman.jpg" },
+      { dataset: { cardName: "batman" }, img: "batman.jpg" },
+    ];
+    memoryGame = new MemoryGame(cardsArray);
+    memoryGame.pickedCards = [memoryGame.cards[0], memoryGame.cards[1]];
+  });
+  it("should be declared", () => {
+    expect(typeof memoryGame.getNamesPickedCards).toBe("function");
+  });
+  it("should return array of 2 string", () => {
+    const ret = memoryGame.getNamesPickedCards();
+    expect(ret.length).toBe(2);
+    expect(typeof ret[0]).toBe("string");
+    expect(typeof ret[1]).toBe("string");
+  });
+});

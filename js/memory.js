@@ -6,6 +6,14 @@ class MemoryGame {
     this.pairsClicked = 0;
     this.pairsGuessed = 0;
   }
+  resetPickedCards() {
+    this.pickedCards = [];
+  }
+  addPickedCard(card) {
+    if (this.pickedCards.length === 2) return false;
+    this.pickedCards.push(card);
+    return true;
+  }
   shuffleCards() {
     if (this.cards.length === 0) return undefined;
     let randomI, swap, iToSetWithrandomValue;
@@ -21,6 +29,10 @@ class MemoryGame {
     }
     return this.cards;
   }
+  getNamesPickedCards() {
+    console.log(this.pickedCards);
+    return [this.pickedCards[0].dataset.cardName, this.pickedCards[1].dataset.cardName];
+  }
   checkIfPair(card1, card2) {
     this.pairsClicked++;
     if (card1 === card2) {
@@ -29,5 +41,10 @@ class MemoryGame {
     }
     return false;
   }
-  isFinished() {}
+  isFinished() {
+    if (this.cards.length === 0 || this.cards.length / 2 !== this.pairsGuessed) {
+      return false;
+    }
+    return true;
+  }
 }

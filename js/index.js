@@ -27,6 +27,9 @@ const cards = [
 
 const memoryGame = new MemoryGame(cards);
 memoryGame.shuffleCards();
+const pairsClickedEl = document.getElementById("pairs-clicked");
+const pairsGuessedEl = document.getElementById("pairs-guessed");
+let cardPicked = 0;
 
 window.addEventListener("load", (event) => {
   let html = "";
@@ -43,19 +46,27 @@ window.addEventListener("load", (event) => {
   // Bind the click event of each element to a function
   document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", () => {
-      // ckeck si deux carte
-      memoryGame.addPickedCard(card);
-      card.classList.toggle("turned");
-      let haveApickedPairs = memoryGame.pickedCards.length === 2;
-      if (haveApickedPairs) {
+      cardPicked++;
+      cardPicked <= 2 && memoryGame.addPickedCard(card) && card.classList.toggle("turned");
+
+      if (cardPicked === 2) {
+        // check if pairs is guessed and add one to pairsclicked element
         let findPairs = memoryGame.checkIfPair(...memoryGame.getNamesPickedCards());
+        let newScoreClicked = Number(pairsClickedEl.textContent) + 1;
+        pairsClickedEl.textContent = newScoreClicked;
         if (findPairs) {
+          // if guessed add one score guessed a
+          let newScoreGuessed = Number(pairsGuessedEl.textContent) + 1;
+          pairsGuessedEl.textContent = newScoreGuessed;
           memoryGame.resetPickedCards();
+          cardPicked = 0;
         } else {
           setTimeout(reTurnCard, 2000, [...memoryGame.pickedCards]);
           memoryGame.resetPickedCards();
         }
-      } else {
+      }
+      if (memoryGame.isFinished()) {
+        alert("You Won!!!!!!");
       }
     });
   });
@@ -63,4 +74,5 @@ window.addEventListener("load", (event) => {
 
 function reTurnCard(arrCards) {
   arrCards.forEach((card) => card.classList.toggle("turned"));
+  cardPicked = 0;
 }

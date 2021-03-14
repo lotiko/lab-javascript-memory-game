@@ -21,6 +21,13 @@ class MemoryGame {
     }
     return this.cards;
   }
-  checkIfPair(card1, card2) {}
+  checkIfPair(card1, card2) {
+    this.pairsClicked++;
+    if (card1 === card2) {
+      this.pairsGuessed++;
+      return true;
+    }
+    return false;
+  }
   isFinished() {}
 }

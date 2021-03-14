@@ -29,6 +29,7 @@ const memoryGame = new MemoryGame(cards);
 memoryGame.shuffleCards();
 const pairsClickedEl = document.getElementById("pairs-clicked");
 const pairsGuessedEl = document.getElementById("pairs-guessed");
+const restart = document.getElementById("restart");
 let cardPicked = 0;
 
 window.addEventListener("load", (event) => {
@@ -69,6 +70,21 @@ window.addEventListener("load", (event) => {
         alert("You Won!!!!!!");
       }
     });
+  });
+  restart.addEventListener("click", () => {
+    memoryGame.restart();
+    pairsClickedEl.textContent = 0;
+    pairsGuessedEl.textContent = 0;
+    let html = "";
+    memoryGame.cards.forEach((pic) => {
+      html += `<div class="card" data-card-name="${pic.name}">`;
+      html += `<div class="back" name="${pic.img}"></div>`;
+      html += `<div class="front" style="background: url(img/${pic.img}) no-repeat"></div>`;
+      html += `</div>`;
+    });
+
+    // Add all the divs to the HTML
+    document.querySelector("#memory-board").innerHTML = html;
   });
 });
 
